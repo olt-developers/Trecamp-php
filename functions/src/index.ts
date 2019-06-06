@@ -1,7 +1,10 @@
 import * as express from 'express';
 import * as functions from 'firebase-functions';
-
+import { router as linebot } from './linebot';
 const app = express();
+
+// https://developers.line.biz/console/channel/1573235259/basic/
+app.use('/callback', linebot);
 
 app.get('/users', (req, res) => {
   const users = [

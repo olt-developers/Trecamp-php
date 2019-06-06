@@ -1,3 +1,6 @@
+# env
+src/linebot/config.ts
+
 ## Compiled JavaScript files
 **/*.js
 **/*.js.map
