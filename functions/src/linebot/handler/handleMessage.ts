@@ -1,7 +1,7 @@
 import * as line from '@line/bot-sdk';
 import * as request from 'request';
 import { MessageEvent } from '@line/bot-sdk';
-import { lineToken } from './config';
+import { lineToken } from '../config';
 
 export const handleMessage = async (
   client: line.Client,

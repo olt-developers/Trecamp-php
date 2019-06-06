@@ -2,9 +2,9 @@ import * as line from '@line/bot-sdk';
 import { WebhookEvent } from '@line/bot-sdk';
 import * as express from 'express';
 import { lineToken } from './config';
-import { handleAccountLink } from './handleAccountLink';
-import { handleMessage } from './handleMessage';
-import { middleware } from './middleware';
+import { handleAccountLink } from './handler/handleAccountLink';
+import { handleMessage } from './handler/handleMessage';
+import { middleware } from './handler/middleware';
 
 /**
  * https://firebase.google.com/docs/functions/http-events?hl=ja#read_values_from_the_request
