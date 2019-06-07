@@ -1,5 +1,6 @@
 # env
 src/linebot/config.ts
+config/
 
 ## Compiled JavaScript files
 **/*.js
