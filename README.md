@@ -2,7 +2,7 @@
 
 ### documents
 
-- firebase firestore  
+- firebase  
 https://firebase.google.com/docs/web/setup?hl=ja
 
 - line bot  
