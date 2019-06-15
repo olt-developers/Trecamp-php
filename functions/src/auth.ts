@@ -6,6 +6,14 @@ import { db } from './firestore';
 
 export const router = express.Router();
 
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
+
 passport.use(
   new LocalStrategy.Strategy(
     {
