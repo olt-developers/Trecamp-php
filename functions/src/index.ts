@@ -1,15 +1,8 @@
 import * as express from 'express';
 import * as functions from 'firebase-functions';
-import * as admin from 'firebase-admin';
 import { router as linebot } from './linebot';
 import { router as auth } from './auth';
-
-admin.initializeApp({
-  credential: admin.credential.cert(require('../config/serviceAccountKey.json')),
-  databaseURL: 'https://trecamp-server.firebaseio.com',
-});
-
-const db = admin.firestore();
+import { db } from './firestore';
 
 const app = express();
 

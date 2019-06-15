@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@types/passport": "^1.0.0",
+    "@types/passport-local": "^1.0.33",
     "firebase-functions-test": "^0.1.6",
     "prettier": "^1.17.1",
     "tslint": "^5.12.0",

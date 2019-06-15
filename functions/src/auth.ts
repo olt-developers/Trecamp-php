@@ -1,10 +1,28 @@
 import * as express from 'express';
 import * as passport from 'passport';
 import * as crypto from 'crypto';
+import * as LocalStrategy from 'passport-local';
+import { db } from './firestore';
 
 export const router = express.Router();
 
-// TODO: id, pass認証
+passport.use(
+  new LocalStrategy.Strategy(
+    {
+      usernameField: 'email',
+      passwordField: 'password',
+    },
+    async (email, password, done) => {
+      const snapshot = await db.collection('users').get();
+      const users = snapshot.docs.map(doc => doc.data());
+      const user = users.find(u => u.email === email);
+      if (!user) {
+        return done(null, false, { message: 'incorrect email' });
+      }
+      return done(null, user);
+    }
+  )
+);
 
 router.post('/', (req, res, next) => {
   passport.authenticate('local', (error, user) => {
