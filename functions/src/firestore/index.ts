@@ -6,3 +6,5 @@ admin.initializeApp({
 });
 
 export const db = admin.firestore();
+export const usersRef = db.collection('users');
+export const noncesRef = db.collection('nonces');
