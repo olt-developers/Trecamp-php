@@ -58,6 +58,7 @@ router.post('/', (req, res, next) => {
       const nonce = createNonce(16);
       noncesRef.doc(nonce).set({
         uid: user.uid,
+        createdAt: Date.now(),
       });
       return res.redirect(
         `https://access.line.me/dialog/bot/accountLink?linkToken=${linkToken}&nonce=${nonce}`

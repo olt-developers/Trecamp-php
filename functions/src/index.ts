@@ -11,7 +11,7 @@ app.use('/callback', linebot);
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/login', auth);
+app.use('/lineLogin', auth);
 
 app.get('/users', async (req, res, next) => {
   const snapshot = await db.collection('users').get();

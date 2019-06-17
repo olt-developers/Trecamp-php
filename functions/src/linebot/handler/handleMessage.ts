@@ -2,6 +2,7 @@ import * as line from '@line/bot-sdk';
 import * as request from 'request';
 import { MessageEvent } from '@line/bot-sdk';
 import { lineToken } from '../config';
+import { usersRef } from '../../firestore';
 
 export const handleMessage = async (
   client: line.Client,
@@ -12,14 +13,24 @@ export const handleMessage = async (
     return Promise.resolve(null);
   }
 
+  let text = '';
+
   if (event.message.text === '連携') {
-    postAccountLink(profile);
+    const snapshot = await usersRef.where('lineId', '==', event.source.userId).get();
+    const user = snapshot.docs.map(doc => doc.data())[0];
+    if (!user) {
+      return postAccountLink(profile);
+    }
+    text = `id:${user.uid}\nname:${user.displayName}\nemail:${user.email}\nで登録済みです。`;
+  } else {
+    text = '[連携]で話しかけてね！';
   }
 
   const echo: line.TextMessage = {
-    text: `${profile.displayName}さん、${event.message.text}`,
+    text,
     type: 'text',
   };
+
   return client.replyMessage(event.replyToken, echo);
 };
 
@@ -51,7 +62,7 @@ const createPostJson = (linkToken: string, profile: line.Profile): any => ({
             {
               label: 'ユーザー連携',
               type: 'uri',
-              uri: `https://trecamp-55883.firebaseapp.com/login?linkToken=${linkToken}`,
+              uri: `https://trecamp-55883.firebaseapp.com/lineLogin?linkToken=${linkToken}`,
             },
           ],
           text: 'Trecampとユーザー連携しますか？',
