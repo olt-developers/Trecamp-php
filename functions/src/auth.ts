@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as passport from 'passport';
 import * as crypto from 'crypto';
+import * as bcrypt from 'bcrypt';
 import * as LocalStrategy from 'passport-local';
 import { noncesRef, usersRef } from './firestore';
 
@@ -23,11 +24,14 @@ passport.use(
       passwordField: 'password',
     },
     async (email, password, done) => {
-      const snapshot = await usersRef.get();
-      const users = snapshot.docs.map(doc => doc.data());
-      const user = users.find(u => u.email === email);
+      const snapshot = await usersRef.where('email', '==', email).get();
+      const user = snapshot.docs.map(doc => doc.data())[0];
       if (!user) {
         return done(null, false, { message: 'incorrect email' });
+      }
+      const res = await bcrypt.compare(password, user.password.replace('$2y$', '$2a$'));
+      if (!res) {
+        return done(null, false, { message: 'incorrect password' });
       }
       return done(null, user);
     }
