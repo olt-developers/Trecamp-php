@@ -4,11 +4,10 @@ import * as crypto from 'crypto';
 import * as bcrypt from 'bcrypt';
 import * as LocalStrategy from 'passport-local';
 import { noncesRef, usersRef } from './firestore';
+import { TOP_URL } from './constants';
 
 export const router = express.Router();
 
-// https://qiita.com/naoko_s/items/523acad62ab4ba18891e
-// https://www.pospome.work/entry/20150608/1433757625
 passport.serializeUser((user, done) => {
   done(null, user);
 });
@@ -44,7 +43,7 @@ router.post('/', (req, res, next) => {
       return next(error);
     }
     if (!user) {
-      return res.redirect('local');
+      return res.redirect(TOP_URL);
     }
 
     req.logIn(user, err => {
