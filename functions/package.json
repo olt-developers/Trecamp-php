@@ -16,6 +16,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "@line/bot-sdk": "^6.7.1",
+    "bcrypt": "^3.0.6",
     "express": "^4.17.1",
     "firebase-admin": "^7.0.0",
     "firebase-functions": "^2.3.0",
@@ -24,6 +25,7 @@
     "request": "^2.88.0"
   },
   "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
     "@types/passport": "^1.0.0",
     "@types/passport-local": "^1.0.33",
     "firebase-functions-test": "^0.1.6",

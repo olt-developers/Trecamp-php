@@ -1,13 +1,13 @@
 import * as express from 'express';
 import * as passport from 'passport';
 import * as crypto from 'crypto';
+import * as bcrypt from 'bcrypt';
 import * as LocalStrategy from 'passport-local';
 import { noncesRef, usersRef } from './firestore';
+import { TOP_URL } from './constants';
 
 export const router = express.Router();
 
-// https://qiita.com/naoko_s/items/523acad62ab4ba18891e
-// https://www.pospome.work/entry/20150608/1433757625
 passport.serializeUser((user, done) => {
   done(null, user);
 });
@@ -23,11 +23,14 @@ passport.use(
       passwordField: 'password',
     },
     async (email, password, done) => {
-      const snapshot = await usersRef.get();
-      const users = snapshot.docs.map(doc => doc.data());
-      const user = users.find(u => u.email === email);
+      const snapshot = await usersRef.where('email', '==', email).get();
+      const user = snapshot.docs.map(doc => doc.data())[0];
       if (!user) {
         return done(null, false, { message: 'incorrect email' });
+      }
+      const res = await bcrypt.compare(password, user.password.replace('$2y$', '$2a$'));
+      if (!res) {
+        return done(null, false, { message: 'incorrect password' });
       }
       return done(null, user);
     }
@@ -40,7 +43,7 @@ router.post('/', (req, res, next) => {
       return next(error);
     }
     if (!user) {
-      return res.redirect('local');
+      return res.redirect(TOP_URL);
     }
 
     req.logIn(user, err => {
@@ -54,6 +57,7 @@ router.post('/', (req, res, next) => {
       const nonce = createNonce(16);
       noncesRef.doc(nonce).set({
         uid: user.uid,
+        createdAt: Date.now(),
       });
       return res.redirect(
         `https://access.line.me/dialog/bot/accountLink?linkToken=${linkToken}&nonce=${nonce}`

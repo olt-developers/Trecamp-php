@@ -15,7 +15,7 @@ export const handleAccountLink = async (
       type: 'text',
     });
   }
-  usersRef.doc(doc.uid).update({
+  usersRef.doc(`${doc.uid}`).update({
     lineId: event.source.userId,
   });
   return client.replyMessage(event.replyToken, {
