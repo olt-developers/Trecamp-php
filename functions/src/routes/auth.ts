@@ -3,8 +3,8 @@ import * as passport from 'passport';
 import * as crypto from 'crypto';
 import * as bcrypt from 'bcrypt';
 import * as LocalStrategy from 'passport-local';
-import { noncesRef, usersRef } from './firestore';
-import { TOP_URL } from './constants';
+import { noncesRef, usersRef } from '../firestore';
+import { TOP_URL } from '../constants';
 
 export const router = express.Router();
 
