@@ -2,8 +2,9 @@ import * as express from 'express';
 import * as functions from 'firebase-functions';
 import * as passport from 'passport';
 import { router as linebot } from './linebot';
-import { router as auth } from './auth';
-import { db } from './firestore';
+import { router as auth } from './routes/auth';
+import { router as users } from './routes/users';
+import { router as trainings } from './routes/trainings';
 import { EndPoints } from './constants';
 
 const app = express();
@@ -16,10 +17,7 @@ app.use(EndPoints.LineCallback, linebot);
 app.use(EndPoints.LineLogin, auth);
 
 // about Trecamp
-app.get(EndPoints.Users, async (req, res, next) => {
-  const snapshot = await db.collection('users').get();
-  const users = snapshot.docs.map(doc => doc.data());
-  res.json(users);
-});
+app.use(EndPoints.Users, users);
+app.use(EndPoints.Trainings, trainings);
 
 export const api = functions.https.onRequest(app);

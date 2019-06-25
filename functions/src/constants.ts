@@ -6,4 +6,5 @@ export enum EndPoints {
   LineLogin = '/lineLogin',
   Login = '/login',
   Users = '/users',
+  Trainings = '/trainings',
 }
