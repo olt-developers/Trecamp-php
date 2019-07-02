@@ -14,6 +14,14 @@ and using Firebase
 - LINEアカウントとトレキャンアカウントの連携
 - botからのアクション
   - 週末にランキング報告
+  
+# server立て
+`server/functions`で  
+`npm run serve`  
+別タブで  
+`npm run staging`
+
+https://◯◯◯.ngrok.io のようにURLが発行されるので、frontend, LINE botそれぞれに設定（◯◯◯の部分を変える）
 
 ### documents
 
