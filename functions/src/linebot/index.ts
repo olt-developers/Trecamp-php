@@ -1,5 +1,5 @@
 import * as line from '@line/bot-sdk';
-import { WebhookEvent } from '@line/bot-sdk';
+// import { WebhookEvent } from '@line/bot-sdk';
 import * as express from 'express';
 import { lineToken } from './config';
 import { handleAccountLink } from './handler/handleAccountLink';
@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
     });
 });
 
-const handleEvent = async (event: WebhookEvent): Promise<any> => {
+const handleEvent = async (event: any): Promise<any> => {
   if (event.source.userId === undefined) {
     return Promise.resolve(null);
   }
