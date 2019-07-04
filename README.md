@@ -28,6 +28,16 @@ and using Firebase
 - botからのアクション
   - 週末にランキング報告
 
+
+### initialization
+- Gitアカウント作成→招待される
+- Gitのインストール
+    - ローカルに作業用ディレクトリを作り、そこにgit clone
+- VScodeのインストール
+- node.jsのインストール
+- firebaseのインストール
+    - npm install -g firebase-tools | npm i -g ngrok
+
 ### documents
 
 - firebase  
