@@ -35,8 +35,12 @@ and using Firebase
     - ローカルに作業用ディレクトリを作り、そこにgit clone
 - VScodeのインストール
 - node.jsのインストール
+    - npm -vコマンドがきくことを確かめる
+- firebaseに招待してもらう
 - firebaseのインストール
-    - npm install -g firebase-tools | npm i -g ngrok
+    - npm install -g firebase-tools 
+- ngrokのインストール
+    - npm i -g ngrok
 
 ### documents
 
