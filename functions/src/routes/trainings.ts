@@ -10,6 +10,12 @@ router.get('/', async (req, res, next) => {
   res.json(trainings);
 });
 
+// params(req.bodyの内容)
+// uid: トレキャンID（今の所LINE IDではない（要検討））
+// date:
+// type: typeを表すnumber(ex: runnning -> 1)
+// value: 距離などのnumber
+// comment
 router.post('/', async (req, res, next) => {
   const typeIndex = req.body.type;
   const snapshot = await typesRef.doc(`${typeIndex}`).get();
