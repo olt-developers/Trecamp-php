@@ -4,6 +4,7 @@ import { MessageEvent } from '@line/bot-sdk';
 import { lineToken } from '../config';
 import { usersRef } from '../../firestore';
 
+// TODO: とりあえずこのメソッドに全部書いて、あとでファイル分割しましょう
 export const handleMessage = async (
   client: line.Client,
   profile: line.Profile,
@@ -14,6 +15,28 @@ export const handleMessage = async (
   }
 
   let text = '';
+
+  // 従来の文法(例↓)
+  // トレキャン1
+  // オリエン10
+  if (event.message.text.includes('トレキャン')) {
+    // 文字列解析
+
+    // こんなデータを作る
+    // const postData = {
+    //   uid: 1,
+    //   date: Date.now(), // 書式決めちゃおう(timestamp or string ...)
+    //   type: 1,
+    //   value: 10
+    // }
+
+    // APIエンドポイントにリクエストを投げる
+    // こんな感じ（曖昧だから調べて＞＜）
+    // uri: http://localhost:5000/trecamp-server/us-central1/api/trainings
+    // json: postData
+    // request.post(...)
+    return;
+  }
 
   if (event.message.text === '連携') {
     const snapshot = await usersRef.where('lineId', '==', event.source.userId).get();
